@@ -12,6 +12,8 @@ intents = discord.Intents.default()
 intents.message_content = True
 client = commands.Bot(command_prefix="c!", intents=intents)
 
+EMBED_COLOR = 0x954535
+
 active_cubes = {}
 
 @client.event
@@ -33,7 +35,7 @@ async def new(ctx):
     active_cubes[user] = cube
 
     gen_cube_image(active_cubes[user])
-    embed = discord.Embed(title=f"{ctx.author.display_name}'s cube", description="", color=0x954535)
+    embed = discord.Embed(title=f"{ctx.author.display_name}'s cube", description="", color=EMBED_COLOR)
     with open("cube.png", "rb") as f:
         embed.set_image(url="attachment://cube.png")
         await ctx.send(file=discord.File(f), embed=embed)
@@ -67,7 +69,7 @@ async def move(ctx, *, move_str):
         active_cubes[user].do_move(m)
 
     gen_cube_image(active_cubes[user])
-    embed = discord.Embed(title=f"{ctx.author.name}'s cube", description="", color=0xffff66)
+    embed = discord.Embed(title=f"{ctx.author.name}'s cube", description="", color=EMBED_COLOR)
     with open("cube.png", "rb") as f:
         embed.set_image(url="attachment://cube.png")
         await ctx.send(file=discord.File(f), embed=embed)
