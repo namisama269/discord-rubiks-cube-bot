@@ -33,7 +33,7 @@ async def new(ctx):
     active_cubes[user] = cube
 
     gen_cube_image(active_cubes[user])
-    embed = discord.Embed(title=f"{ctx.author.display_name}'s cube", description="", color=0xffffe0)
+    embed = discord.Embed(title=f"{ctx.author.display_name}'s cube", description="", color=0x954535)
     with open("cube.png", "rb") as f:
         embed.set_image(url="attachment://cube.png")
         await ctx.send(file=discord.File(f), embed=embed)
@@ -50,6 +50,7 @@ async def close(ctx):
 
 @client.command(pass_context=True, aliases=["m"])
 async def move(ctx, *, move_str):
+    move_str = move_str.replace("’", "'")
     user = str(ctx.message.author)
     if user not in active_cubes:
         await ctx.send(f"{ctx.message.author.mention} No cube currently active")
